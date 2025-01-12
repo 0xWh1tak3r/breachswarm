@@ -14,14 +14,14 @@ from llama_index.llms.ollama import Ollama
 from llama_index.llms.openai import OpenAI
 from llama_index.multi_modal_llms.openai import OpenAIMultiModal
 
-from swarmzero.llms import AzureOpenAILLM
-from swarmzero.llms.claude import ClaudeLLM
-from swarmzero.llms.gemini import GeminiLLM
-from swarmzero.llms.mistral import MistralLLM
-from swarmzero.llms.nebius import NebiuslLLM
-from swarmzero.llms.ollama import OllamaLLM
-from swarmzero.llms.openai import OpenAILLM, OpenAIMultiModalLLM
-from swarmzero.sdk_context import SDKContext
+from breachswarm.llms import AzureOpenAILLM
+from breachswarm.llms.claude import ClaudeLLM
+from breachswarm.llms.gemini import GeminiLLM
+from breachswarm.llms.mistral import MistralLLM
+from breachswarm.llms.nebius import NebiuslLLM
+from breachswarm.llms.ollama import OllamaLLM
+from breachswarm.llms.openai import OpenAILLM, OpenAIMultiModalLLM
+from breachswarm.sdk_context import SDKContext
 
 
 @pytest.fixture
@@ -56,7 +56,7 @@ def tool_retriever(tools):
     with (
         patch("llama_index.core.VectorStoreIndex.from_documents"),
         patch("llama_index.core.objects.ObjectIndex.from_objects"),
-        patch("swarmzero.tools.retriever.base_retrieve.RetrieverBase.create_basic_index") as mock_create_basic_index,
+        patch("breachswarm.tools.retriever.base_retrieve.RetrieverBase.create_basic_index") as mock_create_basic_index,
     ):
         vectorstore_object = ObjectIndex.from_objects(
             tools,
