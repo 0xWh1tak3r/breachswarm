@@ -5,12 +5,12 @@ import pytest
 from llama_index.core.agent import ReActAgent
 from llama_index.core.tools import ToolMetadata
 
-from swarmzero.agent import Agent
-from swarmzero.chat import ChatManager
-from swarmzero.config import Config
-from swarmzero.llms.llm import LLM
-from swarmzero.sdk_context import SDKContext
-from swarmzero.swarm import Swarm
+from breachswarm.agent import Agent
+from breachswarm.chat import ChatManager
+from breachswarm.config import Config
+from breachswarm.llms.llm import LLM
+from breachswarm.sdk_context import SDKContext
+from breachswarm.swarm import Swarm
 
 
 @pytest.fixture
@@ -68,9 +68,9 @@ def basic_swarm(mock_sdk_context, mock_llm, mock_functions, mock_react_agent):
     # Mock the SDK context's generate_agents_from_config method
     mock_sdk_context.generate_agents_from_config.return_value = [mock_agent]
 
-    with patch('swarmzero.swarm.llm_from_config_without_agent', return_value=mock_llm):
-        with patch('swarmzero.swarm.llm_from_wrapper', return_value=mock_llm):
-            with patch('swarmzero.swarm.ReActAgent.from_tools', return_value=mock_react_agent):
+    with patch('breachswarm.swarm.llm_from_config_without_agent', return_value=mock_llm):
+        with patch('breachswarm.swarm.llm_from_wrapper', return_value=mock_llm):
+            with patch('breachswarm.swarm.ReActAgent.from_tools', return_value=mock_react_agent):
                 swarm = Swarm(
                     name="test_swarm",
                     description="Test swarm",
@@ -84,8 +84,8 @@ def basic_swarm(mock_sdk_context, mock_llm, mock_functions, mock_react_agent):
 
 @pytest.mark.asyncio
 async def test_add_agent(basic_swarm, mock_agent, mock_react_agent, mock_llm):
-    with patch('swarmzero.swarm.llm_from_wrapper', return_value=mock_llm) as mock_llm_wrapper:
-        with patch('swarmzero.swarm.ReActAgent.from_tools', return_value=mock_react_agent):
+    with patch('breachswarm.swarm.llm_from_wrapper', return_value=mock_llm) as mock_llm_wrapper:
+        with patch('breachswarm.swarm.ReActAgent.from_tools', return_value=mock_react_agent):
             mock_llm_wrapper.return_value = mock_llm
             basic_swarm.add_agent(mock_agent)
             assert mock_agent.name in basic_swarm._Swarm__agents
@@ -94,8 +94,8 @@ async def test_add_agent(basic_swarm, mock_agent, mock_react_agent, mock_llm):
 
 @pytest.mark.asyncio
 async def test_add_duplicate_agent(basic_swarm, mock_agent, mock_react_agent, mock_llm):
-    with patch('swarmzero.swarm.llm_from_wrapper', return_value=mock_llm) as mock_llm_wrapper:
-        with patch('swarmzero.swarm.ReActAgent.from_tools', return_value=mock_react_agent):
+    with patch('breachswarm.swarm.llm_from_wrapper', return_value=mock_llm) as mock_llm_wrapper:
+        with patch('breachswarm.swarm.ReActAgent.from_tools', return_value=mock_react_agent):
             mock_llm_wrapper.return_value = mock_llm
             basic_swarm.add_agent(mock_agent)
             with pytest.raises(ValueError, match=f"Agent `{mock_agent.name}` already exists in the swarm."):
@@ -104,8 +104,8 @@ async def test_add_duplicate_agent(basic_swarm, mock_agent, mock_react_agent, mo
 
 @pytest.mark.asyncio
 async def test_remove_agent(basic_swarm, mock_agent, mock_react_agent, mock_llm):
-    with patch('swarmzero.swarm.llm_from_wrapper', return_value=mock_llm) as mock_llm_wrapper:
-        with patch('swarmzero.swarm.ReActAgent.from_tools', return_value=mock_react_agent):
+    with patch('breachswarm.swarm.llm_from_wrapper', return_value=mock_llm) as mock_llm_wrapper:
+        with patch('breachswarm.swarm.ReActAgent.from_tools', return_value=mock_react_agent):
             mock_llm_wrapper.return_value = mock_llm
             basic_swarm.add_agent(mock_agent)
             basic_swarm.remove_agent(mock_agent.name)
@@ -134,7 +134,7 @@ async def test_chat(basic_swarm, mock_sdk_context):
     mock_chat_manager.generate_response = mock_generate_response
     mock_sdk_context.get_utility.return_value = mock_db_manager
 
-    with patch('swarmzero.swarm.ChatManager', return_value=mock_chat_manager):
+    with patch('breachswarm.swarm.ChatManager', return_value=mock_chat_manager):
         response = await basic_swarm.chat(prompt="Test prompt", user_id="test_user", session_id="test_session")
         assert response == "Test response"
         mock_db.close.assert_awaited_once()
@@ -149,7 +149,7 @@ async def test_chat_stream(basic_swarm, mock_sdk_context):
 
     mock_chat_manager.generate_response = mock_generate_response
 
-    with patch('swarmzero.swarm.ChatManager', return_value=mock_chat_manager):
+    with patch('breachswarm.swarm.ChatManager', return_value=mock_chat_manager):
         response = await basic_swarm.chat_stream(prompt="Test prompt", user_id="test_user", session_id="test_session")
 
         # Get the response content from the StreamingResponse
@@ -170,7 +170,7 @@ async def test_chat_history(basic_swarm, mock_sdk_context):
     expected_history = {"messages": [{"role": "user", "content": "Test message"}]}
     mock_chat_manager.get_all_chats_for_user = AsyncMock(return_value=expected_history)
 
-    with patch('swarmzero.swarm.ChatManager', return_value=mock_chat_manager):
+    with patch('breachswarm.swarm.ChatManager', return_value=mock_chat_manager):
         history = await basic_swarm.chat_history(user_id="test_user", session_id="test_session")
 
         assert history == expected_history
@@ -204,9 +204,9 @@ async def test_ensure_utilities_loaded(basic_swarm, mock_sdk_context):
 @pytest.mark.skip(reason="Skipping this test for now")
 @pytest.mark.asyncio
 async def test_ensure_utilities_loaded_complete(mock_sdk_context, mock_llm, mock_functions, mock_react_agent):
-    with patch('swarmzero.swarm.llm_from_config_without_agent', return_value=mock_llm):
-        with patch('swarmzero.swarm.llm_from_wrapper', return_value=mock_llm):
-            with patch('swarmzero.swarm.ReActAgent.from_tools', return_value=mock_react_agent):
+    with patch('breachswarm.swarm.llm_from_config_without_agent', return_value=mock_llm):
+        with patch('breachswarm.swarm.llm_from_wrapper', return_value=mock_llm):
+            with patch('breachswarm.swarm.ReActAgent.from_tools', return_value=mock_react_agent):
                 # Create a fresh swarm instance
                 swarm = Swarm(
                     name="test_swarm",
@@ -235,9 +235,9 @@ async def test_swarm_with_custom_id(mock_sdk_context, mock_llm, mock_functions, 
     custom_id = "custom-swarm-id"
     mock_sdk_context.generate_agents_from_config.return_value = []  # Explicitly return empty list
 
-    with patch('swarmzero.swarm.llm_from_config_without_agent', return_value=mock_llm):
-        with patch('swarmzero.swarm.llm_from_wrapper', return_value=mock_llm):
-            with patch('swarmzero.swarm.ReActAgent.from_tools', return_value=mock_react_agent):
+    with patch('breachswarm.swarm.llm_from_config_without_agent', return_value=mock_llm):
+        with patch('breachswarm.swarm.llm_from_wrapper', return_value=mock_llm):
+            with patch('breachswarm.swarm.ReActAgent.from_tools', return_value=mock_react_agent):
                 swarm = Swarm(
                     name="test_swarm",
                     description="Test swarm",
@@ -252,9 +252,9 @@ async def test_swarm_with_custom_id(mock_sdk_context, mock_llm, mock_functions, 
 @pytest.mark.skip(reason="Skipping this test for now")
 @pytest.mark.asyncio
 async def test_build_swarm_with_agents(mock_sdk_context, mock_llm, mock_agent):
-    with patch('swarmzero.swarm.llm_from_config_without_agent', return_value=mock_llm):
-        with patch('swarmzero.swarm.llm_from_wrapper', return_value=mock_llm):
-            with patch('swarmzero.swarm.ReActAgent.from_tools') as mock_react_agent:
+    with patch('breachswarm.swarm.llm_from_config_without_agent', return_value=mock_llm):
+        with patch('breachswarm.swarm.llm_from_wrapper', return_value=mock_llm):
+            with patch('breachswarm.swarm.ReActAgent.from_tools') as mock_react_agent:
                 swarm = Swarm(
                     name="test_swarm",
                     description="Test swarm",
