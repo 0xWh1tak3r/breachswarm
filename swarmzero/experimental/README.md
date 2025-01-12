@@ -1,4 +1,4 @@
-# SwarmZero SDK
+# breachswarm SDK
 
 ## Overview
 
@@ -42,8 +42,8 @@ The system consists of the following components:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/swarmzero/swarmzero.git
-   cd swarmzero
+   git clone https://github.com/breachswarm/breachswarm.git
+   cd breachswarm
    ```
 
 2. **Install Python dependencies**:
