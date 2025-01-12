@@ -1,17 +1,11 @@
-[![PyPI version](https://badge.fury.io/py/swarmzero.svg)](https://badge.fury.io/py/swarmzero)
-[![CI](https://github.com/swarmzero/swarmzero/actions/workflows/test.yml/badge.svg)](https://github.com/swarmzero/swarmzero/actions/workflows/test.yml)
-[![Python Versions](https://img.shields.io/pypi/pyversions/swarmzero.svg)](https://pypi.org/project/swarmzero/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/SwarmZeroAI?style=social)](https://twitter.com/SwarmZeroAI)
-[![](https://dcbadge.limes.pink/api/server/vnJvW4wZp9)](https://discord.gg/vnJvW4wZp9)
+[![Twitter Follow](https://img.shields.io/twitter/follow/breachswarmI?style=social)]([https://twitter.com/SwarmZeroAI](https://x.com/breachswarm))
 
-[![Website](https://img.shields.io/badge/website-swarmzero.ai-fdb022?style=for-the-badge)](https://swarmzero.ai)
-[![Doc](https://img.shields.io/badge/docs-docs.swarmzero.ai-fdb022?style=for-the-badge)](https://docs.swarmzero.ai)
+[![Website](https://img.shields.io/badge/website-breachswarm.com-fdb022?style=for-the-badge)](https://breachswarm.com)
+[![Doc](https://img.shields.io/badge/docs-docs.breachswarm.com-fdb022?style=for-the-badge)](https://docs.breachswarm.com)
 
-![](./assets/logo_dark.png)
-
-# SwarmZero SDK
+# breachswarm SDK
 
 This library provides you with an easy way to create and run AI Agents and Swarms of Agents.
 
@@ -33,20 +27,20 @@ Supported LLM Providers:
 You can either directly install with pip:
 
 ```sh
-pip install swarmzero
+pip install breachswarm
 ```
 
 Or can either directly install with poetry:
 
 ```sh
-poetry add swarmzero
+poetry add breachswarm
 ```
 
 Or add it to your _requirements.txt_ file:
 
 ```sh
 ...
-swarmzero==x.y.z
+breachswarm==x.y.z
 ...
 ```
 
@@ -62,7 +56,7 @@ To use a configuration file with your `Agent`, follow these steps:
 
 1. **Create a Configuration File**:
 
-   - Create a TOML file (e.g., `swarmzero_config.toml`) in your project directory. (See [swarmzero_config_example.toml](./swarmzero_config_example.toml)).
+   - Create a TOML file (e.g., `breachswarm_config.toml`) in your project directory. (See [breachswarm_config_example.toml](./breachswarm_config_example.toml)).
 
 2. **Create an SDK Context**:
 
@@ -70,9 +64,9 @@ To use a configuration file with your `Agent`, follow these steps:
    - The SDKContext allows you to manage configurations, resources, and utilities across your SwarmZero Agents more efficiently.
 
    ```python
-   from swarmzero.sdk_context import SDKContext
+   from breachswarm.sdk_context import SDKContext
 
-   sdk_context = SDKContext(config_path="./swarmzero_config.toml")
+   sdk_context = SDKContext(config_path="./breachswarm_config.toml")
    ```
 
 2. **Specify the Configuration Path**:
@@ -82,25 +76,25 @@ To use a configuration file with your `Agent`, follow these steps:
 
 
    ```python
-   from swarmzero import Agent
+   from breachswarm import Agent
 
    simple_agent = Agent(
        name="Simple Agent",
        functions=[],
        instruction="your instructions for this agent's goal",
        # sdk_context=sdk_context
-       config_path="./swarmzero_config.toml" 
+       config_path="./breachswarm_config.toml" 
    )
    ```
 
 ## Usage
 
-> _More detailed examples can be found at https://github.com/swarmzero/examples_
+> _More detailed examples can be found at https://github.com/breachswarm/examples_
 
 First import the `Agent` class:
 
 ```python
-from swarmzero import Agent
+from breachswarm import Agent
 ```
 
 Load your environment variables:
@@ -145,7 +139,7 @@ You can create tools that help your agent handle more complex tasks. Here's an e
 import os
 from typing import Optional, Dict
 from web3 import Web3
-from swarmzero import Agent
+from breachswarm import Agent
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -203,14 +197,14 @@ if __name__ == "__main__":
 You can create a swarm of agents to collaborate on complex tasks. Here's an example of how to set up and use a swarm:
 
 ````python
-from swarmzero.swarm import Swarm
-from swarmzero.agent import Agent
-from swarmzero.sdk_context import SDKContext
+from breachswarm.swarm import Swarm
+from breachswarm.agent import Agent
+from breachswarm.sdk_context import SDKContext
 
 import asyncio
 
 # Create SDK Context
-sdk_context = SDKContext(config_path="./swarmzero_config_example.toml")
+sdk_context = SDKContext(config_path="./breachswarm_config_example.toml")
 
 
 def save_report():
@@ -243,13 +237,13 @@ if __name__ == "__main__":
 
 ### Adding Retriever
 
-You can add retriever tools to create vector embeddings and retrieve semantic information. It will create vector index for every pdf documents under 'swarmzero-data/files/user' folder and can filter files with required_exts parameter.
+You can add retriever tools to create vector embeddings and retrieve semantic information. It will create vector index for every pdf documents under 'breachswarm-data/files/user' folder and can filter files with required_exts parameter.
 
-- SwarmZero agent supports ".md", '.mdx' ,".txt", '.csv', '.docx', '.pdf' file types.
-- SwarmZero agent supports 4 type of retriever (basic, chroma, pinecone-serverless, pinecone-pod) and controlled with retrieval_tool parameter.
+- breachswarm agent supports ".md", '.mdx' ,".txt", '.csv', '.docx', '.pdf' file types.
+- breachswarm agent supports 4 type of retriever (basic, chroma, pinecone-serverless, pinecone-pod) and controlled with retrieval_tool parameter.
 
 ````python
-from swarmzero import Agent
+from breachswarm import Agent
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -287,7 +281,7 @@ Providing sample prompts allows them to explore what you have built.
 Here's how to add sample prompts which they can use before committing to use your agent/swarm.
 
 #### Default
-In your swarmzero_config.toml file, create a **top level** entry called `[sample_prompts]` and add a new array to the key `prompts` like this:
+In your breachswarm_config.toml file, create a **top level** entry called `[sample_prompts]` and add a new array to the key `prompts` like this:
 ```toml
 [sample_prompts]
 prompts = [
@@ -312,7 +306,7 @@ sample_prompts = [
 ]
 ```
 
-See [./swarmzero_config_example.toml](./swarmzero_config_example.toml) for an example configuration file.
+See [./breachswarm_config_example.toml](./breachswarm_config_example.toml) for an example configuration file.
 
 
 ## Contributing
@@ -392,4 +386,4 @@ Open [http://localhost:8000/docs](http://localhost:8000/docs) with your browser 
 
 ## Learn More
 
-<https://swarmzero.ai>
+<https://breachswarm.com>
