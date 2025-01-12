@@ -5,7 +5,7 @@ from io import BytesIO
 import pytest
 from fastapi import UploadFile
 
-from swarmzero.filestore import FileStore
+from breachswarm.filestore import FileStore
 
 
 @pytest.fixture(scope="module")
