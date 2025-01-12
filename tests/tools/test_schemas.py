@@ -3,8 +3,8 @@ from unittest.mock import MagicMock, patch
 
 from sqlalchemy import Boolean, Column, Integer, MetaData, String, Table, create_engine
 
-from swarmzero.sdk_context import SDKContext
-from swarmzero.tools.agent_db.schema import get_db_schemas
+from breachswarm.sdk_context import SDKContext
+from breachswarm.tools.agent_db.schema import get_db_schemas
 
 
 class TestGetDBSchemas(unittest.TestCase):
