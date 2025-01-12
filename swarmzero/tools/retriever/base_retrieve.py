@@ -2,8 +2,8 @@ import os
 
 from llama_index.core import SimpleDirectoryReader, VectorStoreIndex
 
-from swarmzero.sdk_context import SDKContext
-from swarmzero.server.routes import files
+from breachswarm.sdk_context import SDKContext
+from breachswarm.server.routes import files
 
 supported_exts = [".md", ".mdx", ".txt", ".csv", ".docx", ".pdf"]
 
