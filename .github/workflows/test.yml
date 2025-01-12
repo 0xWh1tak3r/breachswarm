@@ -1,4 +1,4 @@
-name: swarmzero
+name: breachswarm
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
 
       - name: Run Black
         run: |
-          poetry run black swarmzero tests
+          poetry run black breachswarm tests
 
       - name: Run tests with pytest
         run: |
