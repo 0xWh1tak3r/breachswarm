@@ -20,23 +20,23 @@ from llama_index.core.llms import ChatMessage, MessageRole
 from llama_index.core.objects import ObjectIndex
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
 
-from swarmzero.chat import ChatManager
-from swarmzero.llms import AzureOpenAILLM
-from swarmzero.llms.claude import ClaudeLLM
-from swarmzero.llms.llm import LLM
-from swarmzero.llms.mistral import MistralLLM
-from swarmzero.llms.nebius import NebiuslLLM
-from swarmzero.llms.ollama import OllamaLLM
-from swarmzero.llms.openai import OpenAILLM, OpenAIMultiModalLLM
-from swarmzero.llms.utils import llm_from_config
-from swarmzero.sdk_context import SDKContext
-from swarmzero.server.models import ToolInstallRequest
-from swarmzero.server.routes import files, setup_routes
-from swarmzero.server.routes.files import insert_files_to_index
-from swarmzero.tools.retriever.base_retrieve import RetrieverBase, supported_exts
-from swarmzero.tools.retriever.chroma_retrieve import ChromaRetriever
-from swarmzero.tools.retriever.pinecone_retrieve import PineconeRetriever
-from swarmzero.utils import IndexStore, index_base_dir, tools_from_funcs
+from breachswarm.chat import ChatManager
+from breachswarm.llms import AzureOpenAILLM
+from breachswarm.llms.claude import ClaudeLLM
+from breachswarm.llms.llm import LLM
+from breachswarm.llms.mistral import MistralLLM
+from breachswarm.llms.nebius import NebiuslLLM
+from breachswarm.llms.ollama import OllamaLLM
+from breachswarm.llms.openai import OpenAILLM, OpenAIMultiModalLLM
+from breachswarm.llms.utils import llm_from_config
+from breachswarm.sdk_context import SDKContext
+from breachswarm.server.models import ToolInstallRequest
+from breachswarm.server.routes import files, setup_routes
+from breachswarm.server.routes.files import insert_files_to_index
+from breachswarm.tools.retriever.base_retrieve import RetrieverBase, supported_exts
+from breachswarm.tools.retriever.chroma_retrieve import ChromaRetriever
+from breachswarm.tools.retriever.pinecone_retrieve import PineconeRetriever
+from breachswarm.utils import IndexStore, index_base_dir, tools_from_funcs
 
 load_dotenv()
 
@@ -53,7 +53,7 @@ class Agent:
         name: str,
         functions: List[Callable],
         llm: Optional[LLM] = None,
-        config_path="./swarmzero_config_example.toml",
+        config_path="./breachswarm_config_example.toml",
         host="0.0.0.0",
         port=8000,
         instruction="",
@@ -506,7 +506,7 @@ class Agent:
         self.functions.append(function_tool)
         self.recreate_agent()
 
-    def install_tools(self, tools: List[ToolInstallRequest], install_path="swarmzero-data/tools"):
+    def install_tools(self, tools: List[ToolInstallRequest], install_path="breachswarm-data/tools"):
         """
         Install tools from a list of tool configurations.
 
