@@ -3,10 +3,10 @@ from typing import List
 
 from fastapi import APIRouter, HTTPException
 
-from swarmzero.tools.retriever.base_retrieve import RetrieverBase
-from swarmzero.tools.retriever.chroma_retrieve import ChromaRetriever
-from swarmzero.tools.retriever.pinecone_retrieve import PineconeRetriever
-from swarmzero.sdk_context import SDKContext
+from breachswarm.tools.retriever.base_retrieve import RetrieverBase
+from breachswarm.tools.retriever.chroma_retrieve import ChromaRetriever
+from breachswarm.tools.retriever.pinecone_retrieve import PineconeRetriever
+from breachswarm.sdk_context import SDKContext
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
