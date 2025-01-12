@@ -5,19 +5,19 @@ from fastapi import HTTPException
 from fastapi.routing import APIRouter
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from swarmzero.database.schemas import (
+from breachswarm.database.schemas import (
     DataDelete,
     DataInsert,
     DataRead,
     DataUpdate,
     TableCreate,
 )
-from swarmzero.server.routes.database import setup_database_routes
+from breachswarm.server.routes.database import setup_database_routes
 
 
 class TestDatabaseRoutes(unittest.IsolatedAsyncioTestCase):
 
-    @patch("swarmzero.server.routes.database.DatabaseManager")
+    @patch("breachswarm.server.routes.database.DatabaseManager")
     async def test_create_table_handler(self, mock_manager):
         mock_db = AsyncMock(spec=AsyncSession)
         mock_manager_instance = mock_manager.return_value
@@ -36,7 +36,7 @@ class TestDatabaseRoutes(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(cm.exception.status_code, 400)
         self.assertEqual(cm.exception.detail, "Test error")
 
-    @patch("swarmzero.server.routes.database.DatabaseManager")
+    @patch("breachswarm.server.routes.database.DatabaseManager")
     async def test_insert_data_handler(self, mock_manager):
         mock_db = AsyncMock(spec=AsyncSession)
         mock_instance = AsyncMock(id=1)
@@ -56,7 +56,7 @@ class TestDatabaseRoutes(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(cm.exception.status_code, 404)
         self.assertEqual(cm.exception.detail, "Test error")
 
-    @patch("swarmzero.server.routes.database.DatabaseManager")
+    @patch("breachswarm.server.routes.database.DatabaseManager")
     async def test_read_data_handler(self, mock_manager):
         mock_db = AsyncMock(spec=AsyncSession)
         mock_data = [{"col1": "value1", "col2": 2}]
@@ -76,7 +76,7 @@ class TestDatabaseRoutes(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(cm.exception.status_code, 404)
         self.assertEqual(cm.exception.detail, "Test error")
 
-    @patch("swarmzero.server.routes.database.DatabaseManager")
+    @patch("breachswarm.server.routes.database.DatabaseManager")
     async def test_update_data_handler(self, mock_manager):
         mock_db = AsyncMock(spec=AsyncSession)
         mock_manager_instance = mock_manager.return_value
@@ -95,7 +95,7 @@ class TestDatabaseRoutes(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(cm.exception.status_code, 404)
         self.assertEqual(cm.exception.detail, "Test error")
 
-    @patch("swarmzero.server.routes.database.DatabaseManager")
+    @patch("breachswarm.server.routes.database.DatabaseManager")
     async def test_delete_data_handler(self, mock_manager):
         mock_db = AsyncMock(spec=AsyncSession)
         mock_manager_instance = mock_manager.return_value
