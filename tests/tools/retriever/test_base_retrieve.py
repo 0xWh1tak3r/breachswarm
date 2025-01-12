@@ -2,9 +2,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from swarmzero.sdk_context import SDKContext
-from swarmzero.tools.retriever.base_retrieve import RetrieverBase
-from swarmzero.utils import IndexStore
+from breachswarm.sdk_context import SDKContext
+from breachswarm.tools.retriever.base_retrieve import RetrieverBase
+from breachswarm.utils import IndexStore
 
 @pytest.fixture
 def retriever_base():
@@ -27,10 +27,10 @@ def test_retriever_base_initialization(retriever_base, sdk_context):
     assert retriever_base.name == "BaseRetriever"
     assert retriever_base.description == "This tool creates a base retriever index"
     assert retriever_base.required_exts == [".md", ".mdx", ".txt", ".csv", ".docx", ".pdf"]
-    assert retriever_base.retrieve_data_path == "swarmzero-data/files/user"
+    assert retriever_base.retrieve_data_path == "breachswarm-data/files/user"
 
 
-@patch('swarmzero.tools.retriever.base_retrieve.RetrieverBase._load_documents')
+@patch('breachswarm.tools.retriever.base_retrieve.RetrieverBase._load_documents')
 @patch('llama_index.core.VectorStoreIndex.from_documents', return_value="index")
 def test_create_basic_index(mock_from_documents, mock_load_documents, retriever_base, sdk_context):
     retriever_base.sdk_context = sdk_context
@@ -45,7 +45,7 @@ def test_create_basic_index(mock_from_documents, mock_load_documents, retriever_
     assert file_names == ["doc1", "doc2"]
 
 
-@patch('swarmzero.tools.retriever.base_retrieve.RetrieverBase._load_documents')
+@patch('breachswarm.tools.retriever.base_retrieve.RetrieverBase._load_documents')
 def test_insert_documents(mock_load_documents, retriever_base):
     mock_documents = [MagicMock(doc_id="doc1"), MagicMock(doc_id="doc2")]
     mock_load_documents.return_value = (mock_documents, ["doc1", "doc2"])
@@ -56,7 +56,7 @@ def test_insert_documents(mock_load_documents, retriever_base):
     assert result == "2 documents inserted successfully."
 
 
-@patch('swarmzero.tools.retriever.base_retrieve.RetrieverBase._load_documents')
+@patch('breachswarm.tools.retriever.base_retrieve.RetrieverBase._load_documents')
 def test_update_documents(mock_load_documents, retriever_base):
     mock_documents = [MagicMock(doc_id="doc1"), MagicMock(doc_id="doc2")]
     mock_load_documents.return_value = (mock_documents, ["doc1", "doc2"])
@@ -67,7 +67,7 @@ def test_update_documents(mock_load_documents, retriever_base):
     assert result == "2 documents updated successfully."
 
 
-@patch('swarmzero.tools.retriever.base_retrieve.RetrieverBase._load_documents')
+@patch('breachswarm.tools.retriever.base_retrieve.RetrieverBase._load_documents')
 def test_delete_documents(mock_load_documents, retriever_base):
     mock_documents = [MagicMock(doc_id="doc1"), MagicMock(doc_id="doc2")]
     mock_load_documents.return_value = (mock_documents, ["doc1", "doc2"])
