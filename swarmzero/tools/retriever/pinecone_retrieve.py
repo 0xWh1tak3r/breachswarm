@@ -6,7 +6,7 @@ from llama_index.readers.s3 import S3Reader  # Add S3Reader import
 from llama_index.vector_stores.pinecone import PineconeVectorStore
 from pinecone import Pinecone, PodSpec, ServerlessSpec
 
-from swarmzero.tools.retriever.base_retrieve import RetrieverBase
+from breachswarm.tools.retriever.base_retrieve import RetrieverBase
 
 load_dotenv()
 
@@ -38,7 +38,7 @@ class PineconeRetriever(RetrieverBase):
         folder_path=None,
         prefix='',
         bucket=None,
-        collection_name="swarmzero-pinecone",
+        collection_name="breachswarm-pinecone",
         dimension=1536,
         metric="euclidean",
         cloud="aws",
@@ -71,7 +71,7 @@ class PineconeRetriever(RetrieverBase):
         folder_path=None,
         s3_endpoint_url=None,
         bucket=None,
-        collection_name="swarmzero-pinecone-pod",
+        collection_name="breachswarm-pinecone-pod",
         dimension=1536,
         metric="cosine",
         environment="us-east1-gcp",
