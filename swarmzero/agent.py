@@ -290,7 +290,7 @@ class Agent:
                         else:
                             yield f"1:{json.dumps(chunk)}\n"
                     else:
-                        # In non-verbose mode, just yield the text directly
+                        # In non-verbose mode, just yield the text directly.
                         if isinstance(chunk, str):
                             yield f"data: {chunk}\n\n"
                 except Exception as e:
