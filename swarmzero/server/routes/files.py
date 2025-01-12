@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 from fastapi import APIRouter, File, HTTPException, UploadFile
 from sqlalchemy.orm.collections import collection
 
-from swarmzero.filestore import BASE_DIR, FileStore
-from swarmzero.sdk_context import SDKContext
-from swarmzero.tools.retriever.base_retrieve import RetrieverBase
-from swarmzero.tools.retriever.pinecone_retrieve import PineconeRetriever
+from breachswarm.filestore import BASE_DIR, FileStore
+from breachswarm.sdk_context import SDKContext
+from breachswarm.tools.retriever.base_retrieve import RetrieverBase
+from breachswarm.tools.retriever.pinecone_retrieve import PineconeRetriever
 
 load_dotenv()
 
@@ -66,7 +66,7 @@ async def insert_files_to_index(
             index_store = sdk_context.get_utility("indexstore")
             if USE_S3:
                 retriever = PineconeRetriever(sdk_context=sdk_context)
-                collection_name = user_id + session_id if user_id and session_id else "swarmzero-pinecone"
+                collection_name = user_id + session_id if user_id and session_id else "breachswarm-pinecone"
                 index, file_names = retriever.create_serverless_index(
                     file_path=[file_path], collection_name=collection_name
                 )
