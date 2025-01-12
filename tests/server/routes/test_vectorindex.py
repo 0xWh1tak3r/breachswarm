@@ -5,8 +5,8 @@ import pytest
 from fastapi import APIRouter, FastAPI
 from httpx import AsyncClient
 
-from swarmzero.server.routes.vectorindex import setup_vectorindex_routes
-from swarmzero.sdk_context import SDKContext
+from breachswarm.server.routes.vectorindex import setup_vectorindex_routes
+from breachswarm.sdk_context import SDKContext
 
 
 @pytest.fixture(scope="module")
@@ -28,7 +28,7 @@ async def client(app):
 
 @pytest.mark.asyncio
 async def test_create_index_basic(client):
-    with patch('swarmzero.tools.retriever.base_retrieve.RetrieverBase.create_basic_index') as mock_create_index:
+    with patch('breachswarm.tools.retriever.base_retrieve.RetrieverBase.create_basic_index') as mock_create_index:
         mock_create_index.return_value = (MagicMock(), ["test.txt"])
         params = {"index_name": "test_basic", "index_type": "basic", "file_path": ["test.txt"]}
 
@@ -40,7 +40,7 @@ async def test_create_index_basic(client):
 
 @pytest.mark.asyncio
 async def test_create_index_chroma(client):
-    with patch('swarmzero.tools.retriever.chroma_retrieve.ChromaRetriever.create_index') as mock_create_index:
+    with patch('breachswarm.tools.retriever.chroma_retrieve.ChromaRetriever.create_index') as mock_create_index:
         mock_create_index.return_value = (MagicMock(), ["test.txt"])
         params = {"index_name": "test_chroma", "index_type": "chroma", "file_path": ["test.txt"]}
 
@@ -54,7 +54,7 @@ async def test_create_index_chroma(client):
 async def test_create_index_pinecone_serverless(client):
     with (
         patch(
-            'swarmzero.tools.retriever.pinecone_retrieve.PineconeRetriever.create_serverless_index'
+            'breachswarm.tools.retriever.pinecone_retrieve.PineconeRetriever.create_serverless_index'
         ) as mock_create_index,
         patch.dict(os.environ, {'PINECONE_API_KEY': 'fake_api_key'}),
     ):
@@ -74,7 +74,7 @@ async def test_create_index_pinecone_serverless(client):
 @pytest.mark.asyncio
 async def test_create_index_pinecone_pod(client):
     with (
-        patch('swarmzero.tools.retriever.pinecone_retrieve.PineconeRetriever.create_pod_index') as mock_create_index,
+        patch('breachswarm.tools.retriever.pinecone_retrieve.PineconeRetriever.create_pod_index') as mock_create_index,
         patch.dict(os.environ, {'PINECONE_API_KEY': 'fake_api_key'}),
     ):
         mock_create_index.return_value = (MagicMock(), ["test.txt"])
@@ -89,8 +89,8 @@ async def test_create_index_pinecone_pod(client):
 @pytest.mark.asyncio
 async def test_insert_documents(client):
     with (
-        patch('swarmzero.utils.indexstore') as mock_index_store,
-        patch('swarmzero.tools.retriever.base_retrieve.RetrieverBase.insert_documents') as mock_insert,
+        patch('breachswarm.utils.indexstore') as mock_index_store,
+        patch('breachswarm.tools.retriever.base_retrieve.RetrieverBase.insert_documents') as mock_insert,
     ):
         mock_index = MagicMock()
         mock_index_store.get_index.return_value = mock_index
@@ -106,8 +106,8 @@ async def test_insert_documents(client):
 @pytest.mark.asyncio
 async def test_update_documents(client):
     with (
-        patch('swarmzero.utils.indexstore') as mock_index_store,
-        patch('swarmzero.tools.retriever.base_retrieve.RetrieverBase.update_documents') as mock_update,
+        patch('breachswarm.utils.indexstore') as mock_index_store,
+        patch('breachswarm.tools.retriever.base_retrieve.RetrieverBase.update_documents') as mock_update,
     ):
         mock_index = MagicMock()
         mock_index_store.get_index.return_value = mock_index
@@ -123,8 +123,8 @@ async def test_update_documents(client):
 @pytest.mark.asyncio
 async def test_delete_documents(client):
     with (
-        patch('swarmzero.utils.indexstore') as mock_index_store,
-        patch('swarmzero.tools.retriever.base_retrieve.RetrieverBase.delete_documents') as mock_delete,
+        patch('breachswarm.utils.indexstore') as mock_index_store,
+        patch('breachswarm.tools.retriever.base_retrieve.RetrieverBase.delete_documents') as mock_delete,
     ):
         mock_index = MagicMock()
         mock_index_store.get_index.return_value = mock_index
