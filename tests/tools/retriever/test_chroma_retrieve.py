@@ -3,8 +3,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from swarmzero.sdk_context import SDKContext
-from swarmzero.tools.retriever.chroma_retrieve import ChromaRetriever
+from breachswarm.sdk_context import SDKContext
+from breachswarm.tools.retriever.chroma_retrieve import ChromaRetriever
 
 
 @pytest.fixture
@@ -22,10 +22,10 @@ def sdk_context():
 def test_create_index(chroma_retriever, sdk_context):
     chroma_retriever.sdk_context = sdk_context  # Inject the mock sdk_context
     with (
-        mock.patch('swarmzero.tools.retriever.chroma_retrieve.chromadb.PersistentClient') as MockClient,
-        mock.patch('swarmzero.tools.retriever.chroma_retrieve.ChromaVectorStore') as MockVectorStore,
-        mock.patch('swarmzero.tools.retriever.chroma_retrieve.StorageContext') as MockStorageContext,
-        mock.patch('swarmzero.tools.retriever.chroma_retrieve.VectorStoreIndex') as MockVectorStoreIndex,
+        mock.patch('breachswarm.tools.retriever.chroma_retrieve.chromadb.PersistentClient') as MockClient,
+        mock.patch('breachswarm.tools.retriever.chroma_retrieve.ChromaVectorStore') as MockVectorStore,
+        mock.patch('breachswarm.tools.retriever.chroma_retrieve.StorageContext') as MockStorageContext,
+        mock.patch('breachswarm.tools.retriever.chroma_retrieve.VectorStoreIndex') as MockVectorStoreIndex,
         mock.patch.object(
             chroma_retriever, '_load_documents', return_value=(['doc1', 'doc2'], ['file1.txt', 'file2.txt'])
         ),
@@ -41,7 +41,7 @@ def test_create_index(chroma_retriever, sdk_context):
 
         chroma_retriever._load_documents.assert_called_once_with('dummy_path', None)
         MockClient.assert_called_once_with(path=chroma_retriever.base_dir)
-        mock_client_instance.get_or_create_collection.assert_called_once_with('swarmzero_chroma')
+        mock_client_instance.get_or_create_collection.assert_called_once_with('breachswarm_chroma')
         MockVectorStore.assert_called_once_with(chroma_collection=mock_collection)
         MockStorageContext.from_defaults.assert_called_once_with(vector_store=mock_vector_store_instance)
         MockVectorStoreIndex.from_documents.assert_called_once_with(
@@ -54,7 +54,7 @@ def test_create_index(chroma_retriever, sdk_context):
 
 
 def test_delete_collection(chroma_retriever):
-    with mock.patch('swarmzero.tools.retriever.chroma_retrieve.chromadb.PersistentClient') as MockClient:
+    with mock.patch('breachswarm.tools.retriever.chroma_retrieve.chromadb.PersistentClient') as MockClient:
         mock_client_instance = MockClient.return_value
 
         chroma_retriever.delete_collection(collection_name='test_collection')
@@ -66,10 +66,10 @@ def test_delete_collection(chroma_retriever):
 def test_create_index_with_single_document(chroma_retriever, sdk_context):
     chroma_retriever.sdk_context = sdk_context  # Inject the mock sdk_context
     with (
-        mock.patch('swarmzero.tools.retriever.chroma_retrieve.chromadb.PersistentClient') as MockClient,
-        mock.patch('swarmzero.tools.retriever.chroma_retrieve.ChromaVectorStore') as MockVectorStore,
-        mock.patch('swarmzero.tools.retriever.chroma_retrieve.StorageContext') as MockStorageContext,
-        mock.patch('swarmzero.tools.retriever.chroma_retrieve.VectorStoreIndex') as MockVectorStoreIndex,
+        mock.patch('breachswarm.tools.retriever.chroma_retrieve.chromadb.PersistentClient') as MockClient,
+        mock.patch('breachswarm.tools.retriever.chroma_retrieve.ChromaVectorStore') as MockVectorStore,
+        mock.patch('breachswarm.tools.retriever.chroma_retrieve.StorageContext') as MockStorageContext,
+        mock.patch('breachswarm.tools.retriever.chroma_retrieve.VectorStoreIndex') as MockVectorStoreIndex,
         mock.patch.object(chroma_retriever, '_load_documents', return_value=(['single_doc'], ['single_file.txt'])),
     ):
 
