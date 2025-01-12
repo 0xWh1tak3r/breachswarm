@@ -5,14 +5,14 @@ from typing import Any, Optional
 
 from llama_index.core.callbacks import CallbackManager
 
-from swarmzero.config import Config
-from swarmzero.database.database import (
+from breachswarm.config import Config
+from breachswarm.database.database import (
     DatabaseManager,
     get_db,
     initialize_db,
     setup_chats_table,
 )
-from swarmzero.utils import EventCallbackHandler, IndexStore
+from breachswarm.utils import EventCallbackHandler, IndexStore
 
 
 class SDKContext:
@@ -30,7 +30,7 @@ class SDKContext:
     This includes configuration settings, resources, and utilities.
     """
 
-    def __init__(self, config_path: Optional[str] = "./swarmzero_config_example.toml"):
+    def __init__(self, config_path: Optional[str] = "./breachswarm_config_example.toml"):
         """
         Initialize the SDKContext with a path to a TOML configuration file.
 
@@ -109,7 +109,7 @@ class SDKContext:
         self.agent_configs[section] = agent_config
 
     def generate_agents_from_config(self):
-        from swarmzero.agent import Agent
+        from breachswarm.agent import Agent
 
         """
         Generate agents from the configuration file.
@@ -178,8 +178,8 @@ class SDKContext:
         :param resource: The resource to be added.
         :param resource_type: Type of the resource ("agent", "swarm", or "tool").
         """
-        from swarmzero.agent import Agent
-        from swarmzero.swarm import Swarm
+        from breachswarm.agent import Agent
+        from breachswarm.swarm import Swarm
 
         if isinstance(resource, Agent) and resource_type == "agent":
             resource_info = {
@@ -299,8 +299,8 @@ class SDKContext:
         Restore non-serializable objects after loading the context.
         First restore all agents, then restore swarms that depend on those agents.
         """
-        from swarmzero.agent import Agent
-        from swarmzero.swarm import Swarm
+        from breachswarm.agent import Agent
+        from breachswarm.swarm import Swarm
 
         # First pass: Restore agents
         for name, resource in list(self.resources.items()):
