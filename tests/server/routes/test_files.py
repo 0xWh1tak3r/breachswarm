@@ -6,11 +6,11 @@ import pytest
 from fastapi import APIRouter, FastAPI
 from httpx import AsyncClient
 
-from swarmzero.filestore import FileStore
-from swarmzero.sdk_context import SDKContext
-from swarmzero.server.routes.files import setup_files_routes
-from swarmzero.tools.retriever.base_retrieve import RetrieverBase
-from swarmzero.utils import IndexStore
+from breachswarm.filestore import FileStore
+from breachswarm.sdk_context import SDKContext
+from breachswarm.server.routes.files import setup_files_routes
+from breachswarm.tools.retriever.base_retrieve import RetrieverBase
+from breachswarm.utils import IndexStore
 
 BASE_DIR = "test_files"
 
@@ -92,7 +92,7 @@ async def test_create_upload_files(client):
         ]
         response = await client.post("/uploadfiles/", files=files)
         assert response.status_code == 200
-        assert response.json() == {"filenames": ["swarmzero-data/files/user/test.txt"]}
+        assert response.json() == {"filenames": ["breachswarm-data/files/user/test.txt"]}
 
 
 @pytest.mark.asyncio
@@ -103,7 +103,7 @@ async def test_upload_image_jpeg(client):
         ]
         response = await client.post("/uploadfiles/", files=files)
         assert response.status_code == 200
-        assert response.json() == {"filenames": ["swarmzero-data/files/user/test.jpeg"]}
+        assert response.json() == {"filenames": ["breachswarm-data/files/user/test.jpeg"]}
 
 
 @pytest.mark.asyncio
@@ -114,7 +114,7 @@ async def test_upload_image_png(client):
         ]
         response = await client.post("/uploadfiles/", files=files)
         assert response.status_code == 200
-        assert response.json() == {"filenames": ["swarmzero-data/files/user/test.png"]}
+        assert response.json() == {"filenames": ["breachswarm-data/files/user/test.png"]}
 
 
 @pytest.mark.asyncio
@@ -125,7 +125,7 @@ async def test_upload_image_jpg(client):
         ]
         response = await client.post("/uploadfiles/", files=files)
         assert response.status_code == 200
-        assert response.json() == {"filenames": ["swarmzero-data/files/user/test.jpg"]}
+        assert response.json() == {"filenames": ["breachswarm-data/files/user/test.jpg"]}
 
 
 @pytest.mark.asyncio
@@ -136,7 +136,7 @@ async def test_upload_application_pdf(client):
         ]
         response = await client.post("/uploadfiles/", files=files)
         assert response.status_code == 200
-        assert response.json() == {"filenames": ["swarmzero-data/files/user/test.pdf"]}
+        assert response.json() == {"filenames": ["breachswarm-data/files/user/test.pdf"]}
 
 
 @pytest.mark.asyncio
@@ -147,7 +147,7 @@ async def test_upload_application_msword(client):
         ]
         response = await client.post("/uploadfiles/", files=files)
         assert response.status_code == 200
-        assert response.json() == {"filenames": ["swarmzero-data/files/user/test.doc"]}
+        assert response.json() == {"filenames": ["breachswarm-data/files/user/test.doc"]}
 
 
 @pytest.mark.asyncio
@@ -158,7 +158,7 @@ async def test_upload_application_vnd_ms_excel(client):
         ]
         response = await client.post("/uploadfiles/", files=files)
         assert response.status_code == 200
-        assert response.json() == {"filenames": ["swarmzero-data/files/user/test.xls"]}
+        assert response.json() == {"filenames": ["breachswarm-data/files/user/test.xls"]}
 
 
 @pytest.mark.asyncio
@@ -169,7 +169,7 @@ async def test_upload_text_csv(client):
         ]
         response = await client.post("/uploadfiles/", files=files)
         assert response.status_code == 200
-        assert response.json() == {"filenames": ["swarmzero-data/files/user/test.csv"]}
+        assert response.json() == {"filenames": ["breachswarm-data/files/user/test.csv"]}
 
 
 @pytest.mark.asyncio
@@ -180,7 +180,7 @@ async def test_upload_text_markdown(client):
         ]
         response = await client.post("/uploadfiles/", files=files)
         assert response.status_code == 200
-        assert response.json() == {"filenames": ["swarmzero-data/files/user/test.md"]}
+        assert response.json() == {"filenames": ["breachswarm-data/files/user/test.md"]}
 
 
 @pytest.mark.asyncio
