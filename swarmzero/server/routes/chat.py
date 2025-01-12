@@ -20,12 +20,12 @@ from llama_index.core.llms import ChatMessage, MessageRole
 from pydantic import ValidationError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from swarmzero.chat import ChatManager
-from swarmzero.chat.schemas import ChatData, ChatHistorySchema
-from swarmzero.database.database import DatabaseManager, get_db
-from swarmzero.llms.openai import OpenAIMultiModalLLM
-from swarmzero.sdk_context import SDKContext
-from swarmzero.server.routes.files import insert_files_to_index
+from breachswarm.chat import ChatManager
+from breachswarm.chat.schemas import ChatData, ChatHistorySchema
+from breachswarm.database.database import DatabaseManager, get_db
+from breachswarm.llms.openai import OpenAIMultiModalLLM
+from breachswarm.sdk_context import SDKContext
+from breachswarm.server.routes.files import insert_files_to_index
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
