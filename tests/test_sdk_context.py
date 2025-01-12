@@ -4,20 +4,20 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from swarmzero.agent import Agent
-from swarmzero.sdk_context import SDKContext
+from breachswarm.agent import Agent
+from breachswarm.sdk_context import SDKContext
 
 
 @pytest.fixture
 def sdk_context():
-    with patch("swarmzero.config.config.Config.load_config") as mock_load_config:
+    with patch("breachswarm.config.config.Config.load_config") as mock_load_config:
         mock_load_config.return_value = {
             "model": {"model": "gpt-3.5-turbo"},
             "environment": {"type": "dev"},
             "timeout": {"llm": 30},
             "log": {"level": "INFO"},
         }
-        context = SDKContext("./swarmzero_config_test.toml")
+        context = SDKContext("./breachswarm_config_test.toml")
         return context
 
 
@@ -46,7 +46,7 @@ def test_get_config(sdk_context):
     assert "model" in config
 
 
-@patch("swarmzero.sdk_context.SDKContext")
+@patch("breachswarm.sdk_context.SDKContext")
 def test_add_resource_agent(mock_sdk_context):
     sdk_context = mock_sdk_context.return_value
     sdk_context.resources = {}
@@ -101,7 +101,7 @@ def test_get_resource(sdk_context):
 
 @pytest.mark.asyncio
 async def test_initialize_database(sdk_context):
-    with patch("swarmzero.sdk_context.initialize_db") as mock_initialize_db:
+    with patch("breachswarm.sdk_context.initialize_db") as mock_initialize_db:
         await sdk_context.initialize_database()
         mock_initialize_db.assert_called_once()
 
@@ -251,7 +251,7 @@ async def test_load_resource_from_db(sdk_context):
     mock_agent.index_store.list_indexes.return_value = []
 
     # Mock the Agent class to return our properly configured mock
-    with patch('swarmzero.agent.Agent', return_value=mock_agent):
+    with patch('breachswarm.agent.Agent', return_value=mock_agent):
         result = await sdk_context.load_resource_from_db("test_id")
 
         assert result is not None
