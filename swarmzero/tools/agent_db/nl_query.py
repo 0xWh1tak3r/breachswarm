@@ -8,7 +8,7 @@ from llama_index.core.settings import Settings
 from breachswarm.sdk_context import SDKContext
 
 load_dotenv()
-
+ 
 
 def text_2_sql(sdkcontext: SDKContext, prompt: str, tables=None):
     """
