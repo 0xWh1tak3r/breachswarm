@@ -57,7 +57,7 @@ agent_defaults: &agent_defaults
   <<: *default_settings
   id: 0
   port: 8500
-  description: "A helpful agent that uses available tools and data to answer prompts."
+  description: "A helpful agent that uses available tools and data to answer your prompts."
   max_iterations: 10
   sample_prompts:
     - "What can you help me do?"
