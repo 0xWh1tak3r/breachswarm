@@ -1,7 +1,7 @@
 from llama_index.core.agent import ReActAgentWorker
 
-from swarmzero.llms.llm import LLM
-from swarmzero.sdk_context import SDKContext
+from breachswarm.llms.llm import LLM
+from breachswarm.sdk_context import SDKContext
 
 
 class ClaudeLLM(LLM):
