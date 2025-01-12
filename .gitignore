@@ -22,5 +22,5 @@ build
 .DS_Store
 
 *.db
-**/*/swarmzero-data/
-swarmzero-data/
+**/*/breachswarm-data/
+breachswarm-data/
