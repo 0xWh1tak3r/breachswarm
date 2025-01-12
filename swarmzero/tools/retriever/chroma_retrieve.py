@@ -4,11 +4,11 @@ import chromadb
 from llama_index.core import StorageContext, VectorStoreIndex
 from llama_index.vector_stores.chroma import ChromaVectorStore
 
-from swarmzero.tools.retriever.base_retrieve import RetrieverBase
+from breachswarm.tools.retriever.base_retrieve import RetrieverBase
 
 
 class ChromaRetriever(RetrieverBase):
-    def __init__(self, base_dir="swarmzero-data/index/chromadb"):
+    def __init__(self, base_dir="breachswarm-data/index/chromadb"):
         super().__init__(
             name="ChromaRetriever",
             description="This tool creates chroma retriever index",
@@ -16,7 +16,7 @@ class ChromaRetriever(RetrieverBase):
         self.base_dir = base_dir
         os.makedirs(self.base_dir, exist_ok=True)
 
-    def create_index(self, file_path=None, folder_path=None, collection_name="swarmzero_chroma"):
+    def create_index(self, file_path=None, folder_path=None, collection_name="breachswarm_chroma"):
         documents, file_names = self._load_documents(file_path, folder_path)
 
         chroma_client = chromadb.PersistentClient(path=self.base_dir)
@@ -31,6 +31,6 @@ class ChromaRetriever(RetrieverBase):
         )
         return index, file_names
 
-    def delete_collection(self, collection_name="swarmzero_chroma"):
+    def delete_collection(self, collection_name="breachswarm_chroma"):
         chroma_client = chromadb.PersistentClient(path=self.base_dir)
         chroma_client.delete_collection(collection_name)
