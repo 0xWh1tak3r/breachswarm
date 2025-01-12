@@ -9,10 +9,10 @@ from llama_index.core.llms import ChatMessage, MessageRole
 from llama_index.core.memory import ChatMemoryBuffer
 from llama_index.core.schema import ImageDocument
 
-from swarmzero.database.database import DatabaseManager
-from swarmzero.filestore import BASE_DIR, FileStore
-from swarmzero.utils.callback import EventCallbackHandler
-from swarmzero.utils.suggest_questions import NextQuestionSuggestion
+from breachswarm.database.database import DatabaseManager
+from breachswarm.filestore import BASE_DIR, FileStore
+from breachswarm.utils.callback import EventCallbackHandler
+from breachswarm.utils.suggest_questions import NextQuestionSuggestion
 
 file_store = FileStore(BASE_DIR)
 
