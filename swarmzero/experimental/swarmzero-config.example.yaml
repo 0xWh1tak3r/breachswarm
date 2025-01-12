@@ -32,16 +32,16 @@ default: &default_settings
     - "What can you help me do?"
     - "Which tools do you have access to?"
     - "What are your capabilities?"
-  base_dir: "swarmzero-data/"
+  base_dir: "breachswarm-data/"
   db:
     db_url: "postgresql://user:password@localhost/dbname"
     username: "user"
     password: "password"
     host: "localhost"
     db_name: "dbname"
-    db_base_dir: "swarmzero-data/db/"
+    db_base_dir: "breachswarm-data/db/"
   index:
-    index_base_dir: "swarmzero-data/index/"
+    index_base_dir: "breachswarm-data/index/"
     retrieve: false
     retrieval_tool:
       type: "enum"
@@ -50,7 +50,7 @@ default: &default_settings
     index_name: null
     load_index_file: false
   uploads:
-    file_base_dir: "swarmzero-data/uploads/user"
+    file_base_dir: "breachswarm-data/uploads/user"
     supported_extensions: [".md", ".mdx", ".txt", ".csv", ".docx", ".pdf", ".json", "text/csv", ".jpeg", ".jpg", ".png"]
 
 agent_defaults: &agent_defaults
