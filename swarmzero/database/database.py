@@ -302,3 +302,4 @@ class DatabaseManager:
         except SQLAlchemyError as e:
             self.logger.error(f"Error deleting data from '{table_name}' for id {row_id}: {str(e)}")
             raise ValueError(f"Error deleting data: {str(e)}")
+
