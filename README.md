@@ -7,7 +7,7 @@
 
 # breachswarm SDK
 
-This library provides you to create and run AI Agents and Swarms of AI Agents.
+This SDK provides you to create and run AI Agents and Swarms of Agents in real-time.
 
 Supported LLM Providers:
 - [OpenAI](https://platform.openai.com/docs/models/)
