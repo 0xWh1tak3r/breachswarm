@@ -26,8 +26,8 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-os.makedirs("swarmzero-data/db", exist_ok=True)
-db_url = os.getenv("SWARMZERO_DATABASE_URL") or "sqlite+aiosqlite:///swarmzero-data/db/swarmzero.db"
+os.makedirs("breachswarm-data/db", exist_ok=True)
+db_url = os.getenv("breachswarm_DATABASE_URL") or "sqlite+aiosqlite:///breachswarm-data/db/breachswarm.db"
 
 poolclass = None
 connect_args = {}
