@@ -5,7 +5,7 @@ from unittest.mock import AsyncMock, patch
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.declarative import declarative_base
 
-from swarmzero.database.database import DatabaseManager, initialize_db
+from breachswarm.database.database import DatabaseManager, initialize_db
 
 Base = declarative_base()
 
@@ -14,7 +14,7 @@ class TestDatabaseManager(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
         await initialize_db()
 
-    @patch("swarmzero.database.database.DatabaseManager.__init__")
+    @patch("breachswarm.database.database.DatabaseManager.__init__")
     async def test_create_table(self, mock_init):
         mock_session = AsyncMock(spec=AsyncSession)
         mock_init.return_value = None
