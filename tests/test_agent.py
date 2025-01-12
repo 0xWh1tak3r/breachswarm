@@ -10,22 +10,22 @@ from llama_index.core.agent.runner.base import AgentRunner
 from llama_index.core.llms import ChatMessage, MessageRole
 from starlette.datastructures import Headers
 
-from swarmzero.agent import Agent
-from swarmzero.chat import ChatManager
-from swarmzero.utils import IndexStore
+from breachswarm.agent import Agent
+from breachswarm.chat import ChatManager
+from breachswarm.utils import IndexStore
 
 
 @pytest.fixture
 def agent():
     with (
         patch.object(IndexStore, "save_to_file", MagicMock()),
-        patch("swarmzero.agent.OpenAILLM"),
-        patch("swarmzero.agent.AzureOpenAILLM"),
-        patch("swarmzero.agent.ClaudeLLM"),
-        patch("swarmzero.agent.MistralLLM"),
-        patch("swarmzero.agent.NebiuslLLM"),
-        patch("swarmzero.agent.OllamaLLM"),
-        patch("swarmzero.agent.setup_routes"),
+        patch("breachswarm.agent.OpenAILLM"),
+        patch("breachswarm.agent.AzureOpenAILLM"),
+        patch("breachswarm.agent.ClaudeLLM"),
+        patch("breachswarm.agent.MistralLLM"),
+        patch("breachswarm.agent.NebiuslLLM"),
+        patch("breachswarm.agent.OllamaLLM"),
+        patch("breachswarm.agent.setup_routes"),
         patch("uvicorn.Server.serve", new_callable=MagicMock),
         patch("llama_index.core.VectorStoreIndex.from_documents"),
         patch("llama_index.core.objects.ObjectIndex.from_objects"),
@@ -36,7 +36,7 @@ def agent():
         test_agent = Agent(
             name="TestAgent",
             functions=[lambda x: x],
-            config_path="./swarmzero_config_test.toml",
+            config_path="./breachswarm_config_test.toml",
             host="0.0.0.0",
             port=8000,
             instruction="Test instruction",
@@ -63,7 +63,7 @@ def agent():
 @pytest.mark.asyncio
 async def test_agent_initialization(agent):
     assert agent.name == "TestAgent"
-    assert agent.config_path == "./swarmzero_config_test.toml"
+    assert agent.config_path == "./breachswarm_config_test.toml"
     assert agent.instruction == "Test instruction"
     assert agent.role == "leader"
     assert agent.retrieve is True
@@ -73,7 +73,7 @@ async def test_agent_initialization(agent):
 
 
 def test_server_setup(agent):
-    with patch("swarmzero.agent.setup_routes") as mock_setup_routes:
+    with patch("breachswarm.agent.setup_routes") as mock_setup_routes:
         agent._Agent__setup_server()
         mock_setup_routes.assert_called_once()
 
@@ -94,7 +94,7 @@ def test_signal_handler(agent):
 
 
 def test_server_setup_exception(agent):
-    with patch("swarmzero.agent.setup_routes") as mock_setup_routes:
+    with patch("breachswarm.agent.setup_routes") as mock_setup_routes:
         mock_setup_routes.side_effect = Exception("Failed to setup routes")
         with pytest.raises(Exception):
             agent._Agent__setup_server()
@@ -124,7 +124,7 @@ async def test_cleanup(agent):
 
 def test_recreate_agent(agent):
     """
-    with patch("swarmzero.utils.tools_from_funcs") as mock_tools_from_funcs, patch.object(
+    with patch("breachswarm.utils.tools_from_funcs") as mock_tools_from_funcs, patch.object(
         IndexStore, "get_instance"
     ) as mock_get_instance, patch.object(ObjectIndex, "from_objects") as mock_from_objects, patch.object(
         agent, "_assign_agent"
@@ -161,11 +161,11 @@ def test_recreate_agent(agent):
 
 def test_assign_agent(agent):
     with (
-        patch("swarmzero.llms.openai.OpenAIMultiModalLLM") as mock_openai_multimodal,
-        patch("swarmzero.llms.openai.OpenAILLM") as mock_openai_llm,
-        patch("swarmzero.llms.claude.ClaudeLLM") as mock_claude_llm,
-        patch("swarmzero.llms.ollama.OllamaLLM") as mock_ollama_llm,
-        patch("swarmzero.llms.mistral.MistralLLM") as mock_mistral_llm,
+        patch("breachswarm.llms.openai.OpenAIMultiModalLLM") as mock_openai_multimodal,
+        patch("breachswarm.llms.openai.OpenAILLM") as mock_openai_llm,
+        patch("breachswarm.llms.claude.ClaudeLLM") as mock_claude_llm,
+        patch("breachswarm.llms.ollama.OllamaLLM") as mock_ollama_llm,
+        patch("breachswarm.llms.mistral.MistralLLM") as mock_mistral_llm,
     ):
         models = [
             ("gpt-4o", mock_openai_multimodal),
@@ -180,7 +180,7 @@ def test_assign_agent(agent):
         tool_retriever = MagicMock()
 
         for model_name, expected_mock_class in models:
-            with patch("swarmzero.config.Config.get", return_value=model_name):
+            with patch("breachswarm.config.Config.get", return_value=model_name):
                 agent._assign_agent(tools, tool_retriever)
 
                 # expected_mock_class.assert_called_once()  # todo not working
@@ -200,7 +200,7 @@ async def test_chat_method(agent):
 
     mock_chat_manager.generate_response = mock_generate_response
 
-    with patch('swarmzero.agent.ChatManager', return_value=mock_chat_manager):
+    with patch('breachswarm.agent.ChatManager', return_value=mock_chat_manager):
         response = await agent.chat(prompt="Test prompt", user_id="test_user", session_id="test_session")
 
         # The response should contain the test response followed by END_OF_STREAM
@@ -218,7 +218,7 @@ async def test_chat_stream_method(agent):
 
     mock_chat_manager.generate_response = mock_generate_response
 
-    with patch('swarmzero.agent.ChatManager', return_value=mock_chat_manager):
+    with patch('breachswarm.agent.ChatManager', return_value=mock_chat_manager):
         response = await agent.chat_stream(prompt="Test prompt", user_id="test_user", session_id="test_session")
 
         response_content = ""
@@ -241,7 +241,7 @@ async def test_chat_method_error_handling(agent):
         raise Exception("Test error")
         yield  # This line is never reached but needed for async generator syntax
 
-    with patch("swarmzero.agent.ChatManager", autospec=True) as mock_chat_manager_class:
+    with patch("breachswarm.agent.ChatManager", autospec=True) as mock_chat_manager_class:
         mock_chat_manager_instance = mock_chat_manager_class.return_value
         mock_chat_manager_instance.generate_response = mock_generate_response
 
@@ -261,7 +261,7 @@ async def test_chat_stream_method_error_handling(agent):
 
     mock_chat_manager.generate_response = mock_generate_response
 
-    with patch('swarmzero.agent.ChatManager', return_value=mock_chat_manager):
+    with patch('breachswarm.agent.ChatManager', return_value=mock_chat_manager):
         response = await agent.chat_stream(prompt="Test prompt", user_id="test_user", session_id="test_session")
 
         async for chunk in response.body_iterator:
@@ -279,7 +279,7 @@ async def test_chat_history_method(agent):
 
     agent.sdk_context.get_utility.return_value = mock_db_manager
 
-    with patch("swarmzero.agent.ChatManager") as mock_chat_manager_class:
+    with patch("breachswarm.agent.ChatManager") as mock_chat_manager_class:
         mock_chat_manager_instance = mock_chat_manager_class.return_value
 
         mock_chat_manager_instance.get_all_chats_for_user = AsyncMock(
