@@ -7,8 +7,8 @@ from fastapi import APIRouter, FastAPI, status
 from httpx import AsyncClient
 from llama_index.core.llms import ChatMessage, MessageRole
 
-from swarmzero.sdk_context import SDKContext
-from swarmzero.server.routes.chat import setup_chat_routes
+from breachswarm.sdk_context import SDKContext
+from breachswarm.server.routes.chat import setup_chat_routes
 
 
 class MockAgent:
@@ -107,9 +107,9 @@ async def test_chat_success(client, agent):
         yield "mock chunk 2"
 
     with (
-        patch("swarmzero.server.routes.chat.ChatManager.generate_response", side_effect=mock_generate_response),
-        patch('swarmzero.server.routes.chat.insert_files_to_index', return_value=['test.txt']),
-        patch("swarmzero.server.routes.chat.inject_additional_attributes", new=lambda fn, attributes=None: fn()),
+        patch("breachswarm.server.routes.chat.ChatManager.generate_response", side_effect=mock_generate_response),
+        patch('breachswarm.server.routes.chat.insert_files_to_index', return_value=['test.txt']),
+        patch("breachswarm.server.routes.chat.inject_additional_attributes", new=lambda fn, attributes=None: fn()),
     ):
         payload = {
             "user_id": "user1",
@@ -132,10 +132,10 @@ async def test_chat_with_image(client, agent):
 
     with (
         patch(
-            "swarmzero.server.routes.chat.ChatManager.generate_response", side_effect=mock_generate_response
+            "breachswarm.server.routes.chat.ChatManager.generate_response", side_effect=mock_generate_response
         ) as mock_generate_response,
-        patch('swarmzero.server.routes.chat.insert_files_to_index', return_value=['test.txt', 'test.jpg']),
-        patch("swarmzero.server.routes.chat.inject_additional_attributes", new=lambda fn, attributes=None: fn()),
+        patch('breachswarm.server.routes.chat.insert_files_to_index', return_value=['test.txt', 'test.jpg']),
+        patch("breachswarm.server.routes.chat.inject_additional_attributes", new=lambda fn, attributes=None: fn()),
     ):
         payload = {
             "user_id": "user1",
@@ -176,7 +176,7 @@ async def test_get_chat_history_success(client):
         ChatMessage(role=msg["role"], content=msg["content"]) for msg in expected_chat_history
     ]
 
-    with patch("swarmzero.server.routes.chat.ChatManager", return_value=mock_chat_manager):
+    with patch("breachswarm.server.routes.chat.ChatManager", return_value=mock_chat_manager):
         response = await client.get(f"/api/v1/chat_history?user_id={user_id}&session_id={session_id}")
         assert response.status_code == status.HTTP_200_OK
 
@@ -213,7 +213,7 @@ async def test_get_all_chats_success(client):
     mock_chat_manager = AsyncMock()
     mock_chat_manager.get_all_chats_for_user.return_value = expected_all_chats
 
-    with patch("swarmzero.server.routes.chat.ChatManager", return_value=mock_chat_manager):
+    with patch("breachswarm.server.routes.chat.ChatManager", return_value=mock_chat_manager):
         response = await client.get(f"/api/v1/all_chats?user_id={user_id}")
         assert response.status_code == status.HTTP_200_OK
 
