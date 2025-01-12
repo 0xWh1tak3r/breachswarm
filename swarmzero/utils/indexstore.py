@@ -1,7 +1,7 @@
 import os
 import pickle
 
-index_base_dir = "swarmzero-data/index/store/"
+index_base_dir = "breachswarm-data/index/store/"
 
 os.makedirs(index_base_dir, exist_ok=True)
 
