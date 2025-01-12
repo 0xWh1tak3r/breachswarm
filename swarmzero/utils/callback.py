@@ -38,7 +38,7 @@ class EventCallbackHandler(BaseCallbackHandler):
                 "data": {"title": msg},
             }
         else:
-            return None
+            return None 
 
     def get_tool_message(self, payload: Optional[Dict[str, Any]]) -> dict | None:
         if payload is None:
