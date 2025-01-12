@@ -3,7 +3,7 @@ import os
 
 from dotenv import load_dotenv
 
-from swarmzero.sdk_context import SDKContext
+from breachswarm.sdk_context import SDKContext
 
 if "OTEL_EXPORTER_OTLP_ENDPOINT" in os.environ:
     import openlit
@@ -24,13 +24,13 @@ from llama_index.llms.ollama import Ollama
 from llama_index.llms.openai import OpenAI
 from llama_index.multi_modal_llms.openai import OpenAIMultiModal
 
-from swarmzero.config import Config
-from swarmzero.llms.claude import ClaudeLLM
-from swarmzero.llms.llm import LLM
-from swarmzero.llms.mistral import MistralLLM
-from swarmzero.llms.nebius import NebiuslLLM
-from swarmzero.llms.ollama import OllamaLLM
-from swarmzero.llms.openai import AzureOpenAILLM, OpenAILLM, OpenAIMultiModalLLM
+from breachswarm.config import Config
+from breachswarm.llms.claude import ClaudeLLM
+from breachswarm.llms.llm import LLM
+from breachswarm.llms.mistral import MistralLLM
+from breachswarm.llms.nebius import NebiuslLLM
+from breachswarm.llms.ollama import OllamaLLM
+from breachswarm.llms.openai import AzureOpenAILLM, OpenAILLM, OpenAIMultiModalLLM
 
 load_dotenv()
 
