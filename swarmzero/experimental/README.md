@@ -1,6 +1,6 @@
 # breachswarm SDK
 
-## Overview
+## Overview 
 
 The SDK is designed to automate the handling of complex user queries by breaking them down into manageable subtasks and invoking relevant AI agents. Each agent, running as a Docker container and exposed as a REST API service, is specialized in handling specific tasks. The orchestrator coordinates these tasks, ensures proper sequencing, manages user permissions, and handles communication between agents.
 
