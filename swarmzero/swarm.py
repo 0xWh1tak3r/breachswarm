@@ -12,13 +12,13 @@ from llama_index.core.agent import AgentRunner, ReActAgent
 from llama_index.core.llms import ChatMessage, MessageRole
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
 
-from swarmzero.agent import Agent
-from swarmzero.chat import ChatManager
-from swarmzero.llms.llm import LLM
-from swarmzero.llms.utils import llm_from_config_without_agent, llm_from_wrapper
-from swarmzero.sdk_context import SDKContext
-from swarmzero.server.routes.files import insert_files_to_index
-from swarmzero.utils import tools_from_funcs
+from breachswarm.agent import Agent
+from breachswarm.chat import ChatManager
+from breachswarm.llms.llm import LLM
+from breachswarm.llms.utils import llm_from_config_without_agent, llm_from_wrapper
+from breachswarm.sdk_context import SDKContext
+from breachswarm.server.routes.files import insert_files_to_index
+from breachswarm.utils import tools_from_funcs
 
 load_dotenv()
 
@@ -45,7 +45,7 @@ class Swarm:
         functions: List[Callable],
         agents: Optional[List[Agent]] = None,
         llm: Optional[LLM] = None,
-        config_path="./swarmzero_config_example.toml",
+        config_path="./breachswarm_config_example.toml",
         swarm_id=os.getenv("SWARM_ID", ""),
         sdk_context: Optional[SDKContext] = None,
         max_iterations: Optional[int] = 10,
