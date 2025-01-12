@@ -37,7 +37,7 @@ class TestDatabaseManager(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(ValueError):
             await db_manager.create_table("users", "invalid_columns")
 
-    @patch("swarmzero.database.database.DatabaseManager.__init__")
+    @patch("breachswarm.database.database.DatabaseManager.__init__")
     async def test_get_table_definition(self, mock_init):
         # mock_session = AsyncMock(spec=AsyncSession)
         # mock_init.return_value = None
@@ -61,7 +61,7 @@ class TestDatabaseManager(unittest.IsolatedAsyncioTestCase):
 
         pass
 
-    @patch("swarmzero.database.database.DatabaseManager.__init__")
+    @patch("breachswarm.database.database.DatabaseManager.__init__")
     async def test_insert_data(self, mock_init):
         mock_session = AsyncMock(spec=AsyncSession)
         mock_init.return_value = None
@@ -87,7 +87,7 @@ class TestDatabaseManager(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(ValueError):
             await db_manager.insert_data("non_existing", data)
 
-    @patch("swarmzero.database.database.DatabaseManager.__init__")
+    @patch("breachswarm.database.database.DatabaseManager.__init__")
     async def test_read_data(self, mock_init):
         # mock_session = AsyncMock(spec=AsyncSession)
         # mock_init.return_value = None
@@ -122,7 +122,7 @@ class TestDatabaseManager(unittest.IsolatedAsyncioTestCase):
 
         pass
 
-    @patch("swarmzero.database.database.DatabaseManager.__init__")
+    @patch("breachswarm.database.database.DatabaseManager.__init__")
     async def test_update_data(self, mock_init):
         mock_session = AsyncMock(spec=AsyncSession)
         mock_init.return_value = None
@@ -155,7 +155,7 @@ class TestDatabaseManager(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(ValueError):
             await db_manager.update_data("users", 2, new_data)
 
-    @patch("swarmzero.database.database.DatabaseManager.__init__")
+    @patch("breachswarm.database.database.DatabaseManager.__init__")
     async def test_delete_data(self, mock_init):
         mock_session = AsyncMock(spec=AsyncSession)
         mock_init.return_value = None
