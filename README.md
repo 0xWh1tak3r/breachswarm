@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/breachswarmI?style=social)]([https://twitter.com/breachswarm](https://x.com/breachswarm)
+[![Twitter Follow](https://img.shields.io/twitter/follow/breachswarmI?style=social)]([https://twitter.com/breachswarm](https://x.com/breachswarm))
 
 [![Website](https://img.shields.io/badge/website-breachswarm.com-fdfbfb?style=for-the-badge)](https://breachswarm.com)
 [![Doc](https://img.shields.io/badge/docs-docs.breachswarm.com-fbfbfb2?style=for-the-badge)](https://docs.breachswarm.com)
