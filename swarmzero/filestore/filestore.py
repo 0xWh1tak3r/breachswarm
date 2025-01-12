@@ -11,7 +11,7 @@ from fastapi import UploadFile
 
 load_dotenv()
 
-BASE_DIR = "swarmzero-data/files/user"
+BASE_DIR = "breachswarm-data/files/user"
 USE_S3 = os.getenv("USE_S3", "false").lower() == "true"
 S3_BUCKET_NAME = os.getenv("S3_BUCKET_NAME")
 AWS_REGION = os.getenv("AWS_DEFAULT_REGION")
