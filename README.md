@@ -1,21 +1,19 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/breachswarmI?style=social)]([https://twitter.com/SwarmZeroAI](https://x.com/breachswarm))
+[![Twitter Follow](https://img.shields.io/twitter/follow/breachswarmI?style=social)]([https://twitter.com/breachswarm](https://x.com/breachswarm))
 
 [![Website](https://img.shields.io/badge/website-breachswarm.com-fdb022?style=for-the-badge)](https://breachswarm.com)
 [![Doc](https://img.shields.io/badge/docs-docs.breachswarm.com-fdb022?style=for-the-badge)](https://docs.breachswarm.com)
 
 # breachswarm SDK
 
-This library provides you with an easy way to create and run AI Agents and Swarms of Agents.
+This library provides you to create and run AI Agents and Swarms of AI Agents.
 
 Supported LLM Providers:
 - [OpenAI](https://platform.openai.com/docs/models/)
-- [Azure OpenAI](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=python-secure%2Cglobal-standard%2Cstandard-chat-completions)
 - [Anthropic](https://docs.anthropic.com/en/docs/about-claude/models)
 - [MistralAI](https://docs.mistral.ai/getting-started/models/models_overview/)
 - [Gemini](https://ai.google.dev/gemini-api/docs/models/gemini)
-- [Nebius](https://docs.nebius.com/studio/inference/models)
 - [Ollama](https://ollama.com/library)
 
 ## Project Requirements
@@ -50,7 +48,7 @@ You need to specify an `OPENAI_API_KEY` in a _.env_ file in this directory.
 
 Make a copy of the [.env.example](.env.example) file and rename it to _.env_.
 
-## Configuration Setup
+## Config Setup
 
 To use a configuration file with your `Agent`, follow these steps:
 
@@ -60,8 +58,8 @@ To use a configuration file with your `Agent`, follow these steps:
 
 2. **Create an SDK Context**:
 
-   - Create an instance of SDKContext with the path to your configuration file.
-   - The SDKContext allows you to manage configurations, resources, and utilities across your SwarmZero Agents more efficiently.
+   - Create an instance of SDKContext with the path to your config file.
+   - The SDKContext allows you to manage configurations across your breachswarm Agents more efficiently.
 
    ```python
    from breachswarm.sdk_context import SDKContext
@@ -71,8 +69,8 @@ To use a configuration file with your `Agent`, follow these steps:
 
 2. **Specify the Configuration Path**:
 
-   - When creating a `Agent` instance, provide the relative or absolute path to your configuration file.
-   - Agent will use the configuration from the SDK Context. If you have one agent you can directly pass the config_path it will create the sdk_context for you.
+   - When creating a `Agent` instance, provide the path to your configfile.
+   - Agent will use the configuration from the SDK Context. If you have one agent you can directly pass the config_path it will create the sdk_context.
 
 
    ```python
@@ -88,8 +86,6 @@ To use a configuration file with your `Agent`, follow these steps:
    ```
 
 ## Usage
-
-> _More detailed examples can be found at https://github.com/breachswarm/examples_
 
 First import the `Agent` class:
 
@@ -133,7 +129,7 @@ curl --request POST \
 
 ### Adding tools
 
-You can create tools that help your agent handle more complex tasks. Here's an example:
+You can create tools that help your agent handle more complex tasks:
 
 ````python
 import os
@@ -144,11 +140,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-rpc_url = os.getenv("RPC_URL") # add an ETH Mainnet HTTP RPC URL to your `.env` file
+rpc_url = os.getenv("RPC_URL") # add an Solana Mainnet HTTP RPC URL to your `.env` file
 
 def get_transaction_receipt(transaction_hash: str) -> Optional[Dict]:
     """
-    Fetches the receipt of a specified transaction on the Ethereum blockchain and returns it as a dictionary.
+    Fetches the receipt of a specified transaction on the Solana blockchain and returns it as a dictionary.
 
     :param transaction_hash: The hash of the transaction to fetch the receipt for.
     :return: A dictionary containing the transaction receipt details, or None if the transaction cannot be found.
@@ -156,11 +152,11 @@ def get_transaction_receipt(transaction_hash: str) -> Optional[Dict]:
     web3 = Web3(Web3.HTTPProvider(rpc_url))
 
     if not web3.is_connected():
-        print("unable to connect to Ethereum")
+        print("unable to connect to Solana")
         return None
 
     try:
-        transaction_receipt = web3.eth.get_transaction_receipt(transaction_hash)
+        transaction_receipt = web3.sol.get_transaction_receipt(transaction_hash)
         return dict(transaction_receipt)
     except Exception as e:
         print(f"an error occurred: {e}")
@@ -183,18 +179,18 @@ if __name__ == "__main__":
     --header 'Content-Type: multipart/form-data' \
     --form 'user_id="test"' \
     --form 'session_id="test"' \
-    --form 'chat_data={ "messages": [ { "role": "user", "content": "Who is the sender of this transaction - 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060" } ] }'
+    --form 'chat_data={ "messages": [ { "role": "user", "content": "Who is the sender of this transaction - "transaction" " } ] }'
     ```
 
     [2] result:
 
-    The address that initiated the transaction with hash 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 is 0xA1E4380A3B1f749673E270229993eE55F35663b4.
+    The address that initiated the transaction with hash "transaction" is "SOL address".
     """
 ````
 
 ### Creating a Swarm
 
-You can create a swarm of agents to collaborate on complex tasks. Here's an example of how to set up and use a swarm:
+You can create a swarm of agents to collaborate on complex tasks. Here's an example:
 
 ````python
 from breachswarm.swarm import Swarm
@@ -237,7 +233,7 @@ if __name__ == "__main__":
 
 ### Adding Retriever
 
-You can add retriever tools to create vector embeddings and retrieve semantic information. It will create vector index for every pdf documents under 'breachswarm-data/files/user' folder and can filter files with required_exts parameter.
+You can add retriever tools to create vector embeddings and retrieve information. It will create vector index for every pdf documents under 'breachswarm-data/files/user' folder and can filter files with required_exts parameter.
 
 - breachswarm agent supports ".md", '.mdx' ,".txt", '.csv', '.docx', '.pdf' file types.
 - breachswarm agent supports 4 type of retriever (basic, chroma, pinecone-serverless, pinecone-pod) and controlled with retrieval_tool parameter.
