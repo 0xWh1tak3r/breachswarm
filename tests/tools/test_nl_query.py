@@ -7,8 +7,8 @@ from llama_index.core.query_engine import NLSQLTableQueryEngine
 from sqlalchemy import Column, Integer, MetaData, String, Table, create_engine
 from sqlalchemy.exc import ArgumentError
 
-from swarmzero.sdk_context import SDKContext
-from swarmzero.tools.agent_db.nl_query import text_2_sql
+from breachswarm.sdk_context import SDKContext
+from breachswarm.tools.agent_db.nl_query import text_2_sql
 
 os.environ["OPENAI_API_KEY"] = "test_key"
 os.environ["MODEL"] = "gpt-3.5-turbo"
