@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "swarmzero"
+name = "breachswarm"
 version = "0.0.3"
-description = "This library provides you with an easy way to orchestrate AI Agents and Swarms on SwarmZero"
-authors = ["SwarmZero Team <info@swarmzero.ai>"]
+description = "This library provides you with an easy way to orchestrate AI Agents and Swarms on breachswarm"
+authors = ["breachswarm Team <info@breachswarm.ai>"]
 readme = "README.md"
-repository = "https://github.com/swarmzero/swarmzero"
-homepage = "https://swarmzero.ai"
+repository = "https://github.com/breachswarm/breachswarm"
+homepage = "https://breachswarm.ai"
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.13"
@@ -72,4 +72,4 @@ skip-string-normalization = true
 [tool.isort]
 profile = "black"
 skip_gitignore = true
-skip_glob = ["swarmzero/experimental/*", "tests"]
+skip_glob = ["breachswarm/experimental/*", "tests"]
