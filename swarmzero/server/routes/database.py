@@ -4,8 +4,8 @@ from typing import Any, Dict, List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from swarmzero.database.database import DatabaseManager, get_db
-from swarmzero.database.schemas import (
+from breachswarm.database.database import DatabaseManager, get_db
+from breachswarm.database.schemas import (
     DataDelete,
     DataInsert,
     DataRead,
