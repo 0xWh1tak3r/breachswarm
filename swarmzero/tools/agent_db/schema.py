@@ -1,6 +1,6 @@
 from sqlalchemy import MetaData, create_engine
 
-from swarmzero.sdk_context import SDKContext
+from breachswarm.sdk_context import SDKContext
 
 
 def get_db_schemas(sdkcontext: SDKContext):
