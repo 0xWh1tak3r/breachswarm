@@ -5,7 +5,7 @@ from typing import List, Optional
 from llama_index.core.agent.runner.base import AgentRunner
 from llama_index.core.prompts import PromptTemplate
 
-from swarmzero.chat.schemas import Message
+from breachswarm.chat.schemas import Message
 
 logger = logging.getLogger("uvicorn")
 
