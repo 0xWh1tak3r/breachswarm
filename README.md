@@ -382,4 +382,4 @@ Open [http://localhost:8000/docs](http://localhost:8000/docs) with your browser 
 
 ## Learn More
 
-<https://breachswarm.com>
+<https://breachswarm.xyz>
